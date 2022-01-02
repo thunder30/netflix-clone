@@ -1,25 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
+import Movies from './components/Movies'
+import './App.css'
+import requests from './requests'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className="App">
+            <h1>Hey Thunder! This is Netflix-clone application</h1>
+            <Movies title="TRENDING NOW" fetchUrl={requests.fetchTrending} />
+            <Movies title="Top Rated" fetchUrl={requests.fetchTopRated} />
+        </div>
+    )
 }
 
-export default App;
+export default App
