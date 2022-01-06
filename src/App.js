@@ -2,12 +2,12 @@ import Row from './components/Row'
 import './App.css'
 import requests from './requests'
 import Banner from './components/Banner'
+import Navbar from './components/Navbar'
 
 function App() {
     return (
         <div className="app">
-            {/* Navbar */}
-            {/* Banner */}
+            <Navbar />
             <Banner />
             <Row title="TRENDING NOW" fetchUrl={requests.fetchTrending} />
             <Row title="Top Rated" fetchUrl={requests.fetchTopRated} />
