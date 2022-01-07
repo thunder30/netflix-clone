@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import movieTrailer from 'movie-trailer'
 import Slider from 'react-slick'
+import Youtube from 'react-youtube'
 import axios from '../../axios'
 import './Row.css'
 
@@ -7,7 +9,8 @@ const base_image_url = 'https://image.tmdb.org/t/p/original'
 
 function Row({ title, fetchUrl, isLandscapPoster }) {
     const [movies, setMovies] = useState([])
-
+    const [trailerUrl, setTrailerUrl] = useState('')
+    console.log(`hello 🙌`)
     const generalSetting = {
         infinite: true,
         speed: 500,
@@ -54,6 +57,27 @@ function Row({ title, fetchUrl, isLandscapPoster }) {
         ],
     }
 
+    const opts = {
+        height: '390',
+        width: '100%',
+        playerVars: {
+            autoplay: 1,
+        },
+    }
+
+    const handleClick = (movie) => {
+        if (trailerUrl) {
+            setTrailerUrl('')
+        } else {
+            movieTrailer(movie?.title || '')
+                .then((url) => {
+                    // https://www.youtube.com/watch?v=o9ri5DYLvkU
+                    const videoId = new URL(url).searchParams.get('v')
+                    setTrailerUrl(videoId)
+                })
+                .catch((err) => console.log(err))
+        }
+    }
     useEffect(() => {
         async function fetchData() {
             try {
@@ -65,8 +89,6 @@ function Row({ title, fetchUrl, isLandscapPoster }) {
         }
         fetchData()
     }, [])
-
-    console.log(movies)
 
     return (
         <div className="row">
@@ -84,11 +106,13 @@ function Row({ title, fetchUrl, isLandscapPoster }) {
                                         : movie.poster_path
                                 }`}
                                 alt={movie.title}
+                                onClick={() => handleClick(movie)}
                             />
                         </div>
                     ))}
                 </Slider>
             </div>
+            {trailerUrl && <Youtube videoId={trailerUrl} opts={opts} />}
         </div>
     )
 }
