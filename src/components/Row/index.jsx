@@ -10,7 +10,7 @@ const base_image_url = 'https://image.tmdb.org/t/p/original'
 function Row({ title, fetchUrl, isLandscapPoster }) {
     const [movies, setMovies] = useState([])
     const [trailerUrl, setTrailerUrl] = useState('')
-    console.log(`hello 🙌`)
+
     const generalSetting = {
         infinite: true,
         speed: 500,

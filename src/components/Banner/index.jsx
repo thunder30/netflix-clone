@@ -7,7 +7,7 @@ const baseImageUrl = 'https://image.tmdb.org/t/p/original'
 
 function Banner() {
     const [movie, setMovie] = useState()
-    console.log(movie)
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -26,7 +26,6 @@ function Banner() {
     }, [])
 
     function truncate(str, n) {
-        const s = ''
         return str?.length > n ? str.substring(0, n) + '...' : str
     }
 
